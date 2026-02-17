@@ -46,7 +46,7 @@ export default function App() {
         setIsExpanded={setSidebarExpanded}
       />
 
-      <main className={`${sidebarExpanded ? 'ml-64' : 'ml-16'} min-h-screen transition-all duration-300`}>
+      <main className={`${sidebarExpanded ? 'md:ml-64' : 'md:ml-16'} ml-16 min-h-screen transition-all duration-300`}>
         <Header activeView={activeView} />
         <StatsSection stats={stats} />
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

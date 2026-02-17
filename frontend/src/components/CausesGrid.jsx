@@ -15,7 +15,7 @@ const CausesGrid = ({ causes, onDonate }) => {
 
   return (
     <section className="px-8 pb-12">
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid sm:grid-rows md:grid-cols-2 gap-6">
         {causes.map((cause) => (
           <CauseCard key={cause.id} cause={cause} onDonate={onDonate} />
         ))}

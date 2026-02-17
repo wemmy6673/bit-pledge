@@ -13,7 +13,16 @@ const Sidebar = ({
   const { address, connected, balance, connectWallet, disconnectWallet } = walletData;
 
   return (
-    <aside className={`fixed left-0 top-0 h-screen ${isExpanded ? 'w-64' : 'w-16'} bg-black border-r border-[#1a1a1a] flex flex-col z-50 transition-all duration-300`}>
+    <>
+      {/* Backdrop — mobile only, visible when sidebar is expanded */}
+      {isExpanded && (
+        <div
+          className="fixed inset-0 bg-black/60 z-[90] md:hidden"
+          onClick={() => setIsExpanded(false)}
+        />
+      )}
+
+      <aside className={`fixed left-0 top-0 h-screen ${isExpanded ? 'w-64' : 'w-16'} bg-black border-r border-[#1a1a1a] flex flex-col z-[100] md:z-50 transition-all duration-300`}>
       {/* Logo */}
       <div className="p-4 border-b border-[#1a1a1a] flex items-center justify-between">
         <div className="flex items-center gap-3 overflow-hidden">
@@ -22,8 +31,8 @@ const Sidebar = ({
           </div>
           {isExpanded && (
             <div className="whitespace-nowrap">
-              <h1 className="text-xl font-bold">Bit-pledge</h1>
-              <p className="text-xs text-gray-500 mono">Donations made easy</p>
+              <h1 className="text-xl font-bold">BitGive</h1>
+              <p className="text-xs text-gray-500 mono">Donate with Bitcoin</p>
             </div>
           )}
         </div>
@@ -132,6 +141,7 @@ const Sidebar = ({
         )}
       </div>
     </aside>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import { Bitcoin, TrendingUp, Users } from 'lucide-react';
 const StatsSection = ({ stats }) => {
   return (
     <section className="px-8 py-6">
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid sm:grid-rows-3 md:grid-cols-3 gap-6">
         <div className="stat-card rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
             <Bitcoin className="w-8 h-8 text-[#ff6b00]" />
