@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import StatsSection from './components/StatsSection';
-import SearchBar from './components/Searchbar';
+import SearchBar from './components/SearchBar';
 import CausesGrid from './components/CausesGrid';
 import CreateCauseModal from './components/CreateCauseModal';
 import DonateModal from './components/DonateModal';
@@ -18,6 +18,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [causes] = useState(mockCauses);
   const [stats] = useState(mockStats);
+  const [sidebarExpanded, setSidebarExpanded] = useState(false);
   
   const walletData = useXverseWallet();
 
@@ -41,9 +42,11 @@ export default function App() {
         setActiveView={setActiveView}
         onCreateCause={() => setShowCreateModal(true)}
         walletData={walletData}
+        isExpanded={sidebarExpanded}
+        setIsExpanded={setSidebarExpanded}
       />
 
-      <main className="ml-64 min-h-screen">
+      <main className={`${sidebarExpanded ? 'ml-64' : 'ml-16'} min-h-screen transition-all duration-300`}>
         <Header activeView={activeView} />
         <StatsSection stats={stats} />
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

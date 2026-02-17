@@ -93,6 +93,7 @@ const GlobalStyles = () => {
       
       .sidebar-item {
         transition: all 0.2s ease;
+        position: relative;
       }
       
       .sidebar-item:hover {
@@ -101,7 +102,16 @@ const GlobalStyles = () => {
       
       .sidebar-item.active {
         background: rgba(255, 107, 0, 0.1);
-        border-left: 3px solid #ff6b00;
+      }
+      
+      .sidebar-item.active::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: #ff6b00;
       }
       
       .modal-overlay {
