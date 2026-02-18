@@ -1,5 +1,7 @@
 import React from 'react';
 import { Search, TrendingUp, Users, Plus, Bitcoin, Wallet, ChevronRight, ChevronLeft } from 'lucide-react';
+import { useXverseWallet } from '../../hooks/useXverseWallet';
+
 import { truncateAddress } from '../../utils/helpers';
 
 const Sidebar = ({ 
@@ -10,7 +12,9 @@ const Sidebar = ({
   isExpanded,
   setIsExpanded
 }) => {
-  const { address, connected, balance, connectWallet, disconnectWallet } = walletData;
+  // const { address, connected, balance, connectWallet, disconnectWallet } = walletData;
+  const { address, connected, connectWallet, disconnectWallet } = useXverseWallet();
+
 
   return (
     <>
@@ -117,10 +121,7 @@ const Sidebar = ({
                   <p className="text-xs text-gray-500 mb-1">Address</p>
                   <p className="text-sm mono truncate">{truncateAddress(address)}</p>
                 </div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">Balance</p>
-                  <p className="text-lg font-bold text-[#ff6b00]">{balance} BTC</p>
-                </div>
+                
               </>
             ) : (
               <div className="flex flex-col items-center gap-2">

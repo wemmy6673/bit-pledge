@@ -1,33 +1,40 @@
+// hooks/useXverseWallet.js
 import { useState } from 'react';
+import { request } from 'sats-connect';
 
 export const useXverseWallet = () => {
-  const [address, setAddress] = useState(null);
+  const [addresses, setAddresses] = useState(null);
   const [connected, setConnected] = useState(false);
-  const [balance, setBalance] = useState(null);
+  const [error, setError] = useState(null);
 
   const connectWallet = async () => {
     try {
-      if (typeof window.BitcoinProvider !== 'undefined') {
-        const response = await window.BitcoinProvider.connect();
-        if (response.status === 'success') {
-          setAddress(response.addresses[0].address);
-          setConnected(true);
-          // In production, fetch actual balance from API
-          setBalance('0.00234');
-        }
+      const response = await request('wallet_connect', {
+        message: 'Connect wallet',
+        permissions: []
+      });
+
+      if (response.status === 'success') {
+        setAddresses(response.result.addresses);
+        setConnected(true);
+        setError(null);
       } else {
-        alert('Xverse wallet not detected. Please install Xverse wallet extension.');
+        setError(response.error?.message || 'Connection failed');
       }
-    } catch (error) {
-      console.error('Wallet connection failed:', error);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
-  const disconnectWallet = () => {
-    setAddress(null);
-    setConnected(false);
-    setBalance(null);
+  const disconnectWallet = async () => {
+    try {
+      await request('wallet_disconnect', null);
+      setAddresses(null);
+      setConnected(false);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
-  return { address, connected, balance, connectWallet, disconnectWallet };
+  return { addresses, connected, error, connectWallet, disconnectWallet };
 };
